@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <ctime>
+#include <iomanip>
 
 // default Date constructor
 Date::Date()
@@ -31,28 +32,66 @@ double Date::getYear()
 	return m_year;
 }
 
+double Date::getTotalTime()
+{
+	double time = 0;
+	for (int i = 0; i < timepairs.size(); i++)
+	{
+		time += (timepairs[i].getTimeOutHour() + (timepairs[i].getTimeOutMinute() / 60)) - (timepairs[i].getTimeInHour() + (timepairs[i].getTimeInMinute() / 60));
+	}
+	return time;
+}
 
 // clock in
-void Date::ClockIn(Date &aDate)
+void Date::ClockIn()
 {
 	TimePair newPear = TimePair();
-	aDate.appendPair(newPear);
+	appendPair(newPear);
 	std::cout << "This should have worked!\n";
 }
 
+// clock out
+
 void Date::ClockOut()
 {
-
+	timepairs[timepairs.size() - 1].setTimeOutHour(Date::getCurrentHour()), timepairs[timepairs.size() - 1].setTimeOutMinute(Date::getCurrentMinute());
 }
+
 
 void Date::PrintTimes()
 {
-	std::cout << "      Time In                     Time Out\n";
+	std::cout << "   Time In                Time Out\n";
 	for (int i = 0; i < timepairs.size(); i++)
 	{
-		std::cout << timepairs[i].getTimeInHour() << ":" << timepairs[i].getTimeInMinute() << std::endl;
+		std::cout << std::setw(5) << timepairs[i].getTimeInHour() << ":" << timepairs[i].getTimeInMinute() << std::setw(20) << timepairs[i].getTimeOutHour() << ":" << timepairs[i].getTimeOutMinute() << std::endl;
 	}
+	std::cout << "-------------------------------------------------------\n";
+	std::cout << "     Total Time (in Hours): " << getTotalTime() << std::endl;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // static functions to get current time stats

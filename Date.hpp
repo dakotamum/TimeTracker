@@ -25,19 +25,26 @@ private:
 		double getTimeInHour() { return m_timeInHour; }
 		double getTimeInMinute() { return m_timeInMinute; }
 		double getTimeOutHour() { return m_timeOutHour; }
-		double getTimeOutMinute() { return m_timeInMinute; }
+		double getTimeOutMinute() { return m_timeOutMinute; }
+
+		void setTimeInHour(double time) { m_timeInHour = time; }
+		void setTimeInMinute(double time) { m_timeInMinute = time; }
+		void setTimeOutHour(double time) { m_timeOutHour = time; }
+		void setTimeOutMinute(double time) { m_timeOutMinute = time; }
 	};
 	std::vector<TimePair> timepairs;
 
+	std::vector<TimePair> getTimePairs() { return timepairs; }
+	double getTotalTime();
+
 public:
 	Date();
-	static void ClockIn(Date&);
 	void appendPair(TimePair aPear) { timepairs.push_back(aPear); }
 	void ClockOut();
 	void PrintTimes();
 	double getDay(), getMonth(), getYear();
+	void ClockIn();
 	static double getCurrentDay(), getCurrentMonth(), getCurrentYear(), getCurrentHour(), getCurrentMinute();
-	
 };
 
 #endif

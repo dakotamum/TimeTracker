@@ -26,25 +26,11 @@ void printMenu()
 	std::cout << "5. Exit\n";
 }
 
-void ClockIn(std::vector<Date> &aDateVector)
-{
-	Date lastDate = aDateVector[aDateVector.size()-1];
-	if (lastDate.getYear() == Date::getCurrentYear() && lastDate.getMonth() == Date::getCurrentMonth() && lastDate.getYear() == Date::getCurrentYear())
-	{
-		lastDate.ClockIn(lastDate);
-	}
-	else
-	{
-		Date newDate = Date();
-		aDateVector.push_back(newDate);
-	}
-}
-
 void PrintDateStats(std::vector<Date> aDateVector)
 {
 	for (int i = 0; i < aDateVector.size(); i++)
 	{
-		std::cout << aDateVector[i].getDay() << "/" << aDateVector[i].getMonth() << "/" << aDateVector[i].getYear() << std::endl;
+		std::cout << aDateVector[i].getMonth() << "/" << aDateVector[i].getDay() << "/" << aDateVector[i].getYear() << std::endl;
 		aDateVector[i].PrintTimes();
 	}
 }
@@ -64,7 +50,16 @@ int main()
 		case 1:
 			if (theDateVector.size() != 0)
 			{
-				ClockIn(theDateVector);
+				Date lastDate = theDateVector[theDateVector.size() - 1];
+				if (lastDate.getDay() == Date::getCurrentDay() && lastDate.getMonth() == Date::getCurrentMonth() && lastDate.getYear() == Date::getCurrentYear())
+				{
+					theDateVector[theDateVector.size()-1].ClockIn();
+				}
+				else
+				{
+					Date newDate = Date();
+					theDateVector.push_back(newDate);
+				}
 			}
 			else
 			{
@@ -73,7 +68,7 @@ int main()
 			}
 			break;
 		case 2:
-			
+			theDateVector[theDateVector.size() - 1].ClockOut();
 			break;
 		}
 
